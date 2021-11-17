@@ -14,8 +14,7 @@ public class Sol16943 {
 		List<String> list = new ArrayList<>();
 
 		int target = 1000;
-		int targetNum = 5
-			;
+		int targetNum = 5;
 		MAX = 0;
 		while(target > 0){
 			int index = target%10;
