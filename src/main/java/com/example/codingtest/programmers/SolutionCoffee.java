@@ -74,14 +74,13 @@ class SolutionCoffee {
 						counter--;
 					}
 				}
-
-
 			}
 			Collections.sort(list);
 
 			for (int i : list){
 				answerList.add(i);
 			}
+
 
 
 

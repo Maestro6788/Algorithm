@@ -2,12 +2,12 @@ package com.example.codingtest.beakjoon;
 
 import org.junit.jupiter.api.Test;
 
-class Sol2667Test {
+class SolTest5567 {
 
 	@Test
 	void sol() {
 
-		Sol2667Re solution = new Sol2667Re();
+		Sol5567 solution = new Sol5567();
 
 		solution.sol();
 
