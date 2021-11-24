@@ -7,7 +7,7 @@ class SolTest14888 {
 	@Test
 	void sol() {
 
-		Sol14888 solution = new Sol14888();
+		Sol14888Re solution = new Sol14888Re();
 
 		solution.sol();
 
