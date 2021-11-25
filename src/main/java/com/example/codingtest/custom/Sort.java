@@ -2,6 +2,7 @@ package com.example.codingtest.custom;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -11,41 +12,35 @@ import java.util.Queue;
 
 public class Sort {
 
-	public void operate(){
+	// 정렬이 없번 일어 났는지 계산산
+	public void operate() {
 
-		Queue<Integer> list = new LinkedList<>();
+		int[] map = new int[] {1, 6, 3, 4, 7};
+		Map<String,Integer> hash = new HashMap<>();
 
-		list.offer(1);
-		list.offer(2);
-		list.offer(3);
-		list.offer(4);
-		list.offer(5);
-		list.offer(6);
-		list.offer(7);
+		String[] nums = new String[map.length];
 
-		List<Integer> answer = new ArrayList<>();
+		for (int i=0; i<nums.length; i++)
+			nums[i] = map[i] + "";
 
-		while(!list.isEmpty()){
+		Arrays.sort(nums, new Comparator<String>() {
+			public int compare(String o1, String o2) {
 
-			for (int i = 0 ; i < 2 ; i++){
+				System.out.print("o1 : " + o1 + " ");
+				System.out.println("o2 : " + o2);
 
-				int index = list.poll();
-				list.offer(index);
+				System.out.println((o1 + o2).compareTo(o2 + o1) );
+				if ((o1 + o2).compareTo(o2 + o1) <= -1){
+					hash.put(o1,hash.getOrDefault(o1,0)+1);
+					hash.put(o2,hash.getOrDefault(o2,0)+1);
+				}
+
+
+				return (o1 + o2).compareTo(o2 + o1);
 			}
+		});
 
-			answer.add(list.poll());
-		}
-
-		System.out.println(answer);
-
-
-
+		System.out.println(hash);
 
 	}
-
-
-
-
-
-
 }
