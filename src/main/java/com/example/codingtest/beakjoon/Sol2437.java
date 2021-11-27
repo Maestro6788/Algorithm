@@ -1,4 +1,3 @@
-/*
 package com.example.codingtest.beakjoon;
 
 import java.io.BufferedReader;
@@ -8,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
-public class Main {
+public class Sol2437 {
 
 	public static void main(String[] args) throws IOException {
 
@@ -62,4 +61,3 @@ public class Main {
 
 
 }
-*/

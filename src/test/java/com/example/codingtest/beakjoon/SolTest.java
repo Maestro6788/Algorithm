@@ -9,7 +9,7 @@ class SolTest {
 	@Test
 	void sol() {
 
-		Sol solution = new Sol();
+		Sol1092 solution = new Sol1092();
 
 		solution.sol();
 
