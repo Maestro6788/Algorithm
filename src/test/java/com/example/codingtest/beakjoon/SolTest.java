@@ -9,9 +9,9 @@ class SolTest {
 	@Test
 	void sol() {
 
-		Sol1092 solution = new Sol1092();
-
-		solution.sol();
+		// Sol solution = new Sol();
+		//
+		// solution.sol();
 
 		//assertThat(solution.sol(), is(2));
 
