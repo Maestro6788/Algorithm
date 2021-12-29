@@ -1,56 +1,58 @@
 package com.example.codingtest.beakjoon;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class Sol15649 {
 
-	public static int[] arr;
-	public static boolean[] visit;
+	public static int size;
+	public static int line;
+	public static boolean[] arr;
+	public static List<Integer> list;
 
-	public void sol() {
+	public static void main(String[] args) throws IOException {
 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		size = Integer.parseInt(st.nextToken());
+		line = Integer.parseInt(st.nextToken());
 
-
-		int N = 4;
-		int M = 4;
-
-		arr = new int[M];   // 1차원 배열 크기 2짜리
-		visit = new boolean[N];  // 방문체크 깊이 4
-		dfs(N, M, 0);
+		arr = new boolean[size];
+		list = new ArrayList<>();
+		dfs(0);
 
 	}
 
-	public static void dfs(int N, int M, int depth) {
-		// 깊이만큼 들어가면
-		if (depth == M) {
-			for (int val : arr) {
-				//System.out.print(val + " ");
+	public static void dfs(int depth) {
+
+		if (depth == line) {
+
+			StringBuilder sb = new StringBuilder();
+			for (int n : list){
+				sb.append(n).append(' ');
 			}
-			//System.out.println();
+			System.out.println(sb.toString());
 			return;
 		}
 
+		for (int i = 0; i < size; i++) {
 
-		// 깊이가 4가 아니면
-		// 여기서 1 2 / 1 3 / 1 4
-		// 뒷부분이 결정
-		for (int i = 0; i < N; i++) {
-			if (!visit[i]) {
-				visit[i] = true;
-				arr[depth] = i + 1;
+			if (arr[i] == false) {
 
+				arr[i] = true;
+				list.add(i + 1);
+				dfs(depth + 1);
+				list.remove(depth);
+				arr[i] = false;
 
-				for (int j = 0 ; j < arr.length ; j++){
-					System.out.print(arr[j]);
-				}
-				System.out.println();
-
-				dfs(N, M, depth + 1);
-				System.out.println("====");
-				visit[i] = false;
 			}
 
-			System.out.println();
 		}
+
 	}
+
 }
