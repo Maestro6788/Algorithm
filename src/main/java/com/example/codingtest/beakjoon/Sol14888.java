@@ -1,95 +1,94 @@
 package com.example.codingtest.beakjoon;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class Sol14888 {
 
 	public static int[] arr;
-	public static boolean[] visit;
-	public static List<Integer> numList;
-	public static List<Integer> arrList;
-	public static int N;
-	public static int count;
+	public static int[] operator;
+	public static int num;
+	public static int answer;
+	public static int min;
+	public static int max;
 
 
-	public void sol() {
-count = 0;
-		numList = List.of(
-			1,2,3,4,5,6
-		);
-
-		arrList = new ArrayList<>();
-		arrList.add(2);
-		arrList.add(1);
-		arrList.add(1);
-		arrList.add(1);
+	public static void main(String[] args) throws IOException {
 
 
-		for (int i : arrList){
-			N += i ;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		num = Integer.parseInt(br.readLine());
+
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		arr = new int[num];  // 줘진 숫자
+		operator = new int[4];
+
+		min = Integer.MAX_VALUE;
+		max = 0;
+
+		for (int i = 0 ; i < num ; i++){
+			arr[i] = Integer.parseInt(st.nextToken());
+
 		}
 
-		dfs(0,0);
-		System.out.println(count);
+		StringTokenizer st1 = new StringTokenizer(br.readLine());
+		for (int i = 0 ; i < 4 ; i++){
+			operator[i] = Integer.parseInt(st1.nextToken());
+
+		}
+
+		answer = arr[0];
+
+		dfs(answer,0);
+
+
+
 
 	}
 
-	public  void dfs(int depth, int num) {
+	public static void dfs(int result, int depth){
 
-		if (depth ==5){
-			count++;
-			return ;
+		if (depth == num-1){
+			System.out.println(result);
+			max = Math.max(max, result);
+			min = Math.min(min, result);
+			return;
 		}
 
-		for (int i = 1 ; i < N+1 ; i++){
 
-			int index = -1;
-			for (int j = 0 ; j < 4 ; j++){
-				if (arrList.get(j) != 0){
-					index = j;
-					int a = arrList.get(j);
-					arrList.set(j,a-1);
-					break;
+		for (int i = 0 ; i < 4 ; i++){
+
+			if (operator[i] > 0){
+
+				operator[i]--;
+
+
+				if (i == 0){
+					result = result + arr[depth+1];
 				}
+				else if (i==1){
+					result = result - arr[depth+1];
+				}
+				else if (i==2){
+					result = result * arr[depth+1];
+				}
+				else if (i==3){
+					result = result / arr[depth+1];
+				}
+
+
+
+
+				dfs(result,depth+1);
+
+				operator[i]++;
+
+
 			}
-
-			if (index == -1){
-				return;
-			}
-			if (depth == 0){
-				if (index == 0){
-					num =numList.get(i-1) + numList.get(i);
-				}
-				else if (index == 1){
-					num =  numList.get(i-1) - numList.get(i);
-				}
-				else if (index == 2){
-					num = numList.get(i-1) * numList.get(i);
-				}
-				else if (index == 3){
-					num = numList.get(i-1) / numList.get(i);
-				}
-			}
-			else{
-				if (index == 0){
-					num = num +  numList.get(i);
-				}
-				else if (index == 1){
-					num = num  - numList.get(i);
-				}
-				else if (index == 2){
-					num = num * numList.get(i);
-				}
-				else if (index == 3){
-					num = num / numList.get(i);
-				}
-			}
-
-
-			dfs(depth+1, num );
-			arrList.set(index,arrList.get(index) +1);
-
 
 
 		}
@@ -97,4 +96,7 @@ count = 0;
 
 
 	}
+
+
+
 }

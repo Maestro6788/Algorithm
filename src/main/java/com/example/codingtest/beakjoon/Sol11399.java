@@ -1,61 +1,39 @@
 package com.example.codingtest.beakjoon;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class Sol11399 {
 
-	public static int[] arr;
-	public static boolean[] visit;
+	public static void main(String[] args) throws IOException {
 
-	public class Point implements Comparable<Point> {
-		int x;
-		int y;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int num = Integer.parseInt(br.readLine());
+		int[] arr = new int[num];
 
-		public Point(int x, int y){
-			this.x = x;
-			this.y = y;
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		for (int i = 0 ; i < num ; i++){
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
 
+		Arrays.sort(arr);
 
-		@Override
-		public int compareTo(Point p){
-
-			if ( this.y >= p.y){
-				return 1;
-			}
-
-			return -1;
+		int answer = 0;
+		int result = 0;
+		for (int i = 0 ; i < num ; i++){
+			answer +=  arr[i];
+			result += answer;
 		}
 
-		@Override
-		public String toString() {
-			return "Point{" +
-				"x=" + x +
-				", y=" + y +
-				'}';
-		}
+		System.out.println(result);
 	}
 
-	public void sol() {
-
-		int[] a = new int[]{3, 1, 4, 3, 2};
-		List<Point> list = new ArrayList<>();
 
 
-		for (int i = 0 ; i < a.length ; i++){
-			list.add(new Point(i,a[i]));
-		}
-
-		Collections.sort(list);
-
-		System.out.println(list);
-
-
-	}
-
-	public  void dfs(int N, int M, int depth) {
-
-	}
 }
