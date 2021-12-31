@@ -9,13 +9,13 @@ class SolutionTest {
 	@Test
 	void sol() {
 
-		Solution042 solution = new Solution042();
+		Ebay002 solution = new Ebay002();
 
 
 		// String[] participant = new String[]{1, 1, 9, 1, 1, 1};
-		int[][] completion = new int[][]{{1,3},{2,3},{3,4},{4,5},{4,6},{4,7},{7,8},{7,9}};
+		int[] completion = new int[]{1, 3, 2};
 
-		solution.solution(9,completion);
+		solution.solution(completion,3);
 
 		//assertThat(solution.sol(), is(2));
 
