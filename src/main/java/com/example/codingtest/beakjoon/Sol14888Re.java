@@ -1,99 +1,66 @@
 package com.example.codingtest.beakjoon;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class Sol14888Re {
 
 	public static int[] arr;
-	public static boolean[] visit;
-	public static List<Integer> num;
-	public static List<Integer> operater;
-	public static int N;
+	public static int[] operator;
+	public static int num;
+	public static int answer;
+	public static int min;
+	public static int max;
 
+	public static void main(String[] args) throws IOException {
 
-	public void sol() {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		num = Integer.parseInt(br.readLine());  // 주어지는 숫자의 개수
 
-		num = new ArrayList<>();
-		operater = new ArrayList<>();
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		arr = new int[num];
+		operator = new int[4];
 
-		num.add(1);
-		num.add(2);
-		num.add(3);
-		num.add(4);
-		num.add(5);
-		num.add(6);
+		min = Integer.MAX_VALUE;
+		max = 0;
 
-		operater.add(2);
-		operater.add(1);
-		operater.add(1);
-		operater.add(1);
-		N = num.size();
+		for (int i = 0 ; i < num ; i++){
+			arr[i] = Integer.parseInt(st.nextToken()); // 주어지는 숫자 배열 저장
+		}
 
-		int answer = 0;
-
-		dfs(0,answer);
-
-
-
-
-
+		StringTokenizer st1 = new StringTokenizer(br.readLine());
+		for (int i = 0 ; i < 4 ; i++){
+			operator[i] = Integer.parseInt(st1.nextToken()); // 연산자 저장
+		}
 
 	}
 
-	public  void dfs(int depth,int answer) {
 
-		if (depth == N){
-			System.out.println(answer);
-			return;
-		}
+	public static void dfs(){
+
+
 
 		for (int i = 0 ; i < 4 ; i++){
 
-			if (operater.get(i) > 0){
-				operater.set(i,operater.get(i)-1);
 
-				if (depth ==0){
-					if (i == 0){
-						answer = num.get(depth) + num.get(depth+1);
-					}
-					else if (i == 1){
-						answer = num.get(depth) - num.get(depth+1);
-					}
-					else if (i == 2){
-						answer = num.get(depth) * num.get(depth+1);
-					}
-					else if (i == 3){
-						answer = num.get(depth) / num.get(depth+1);
-					}
-				}
-				else{
-					if (i == 0){
-						answer = answer + num.get(depth+1);
-					}
-					else if (i == 1){
-						answer = answer - num.get(depth+1);
-					}
-					else if (i == 2){
-						answer = answer * num.get(depth+1);
-					}
-					else if (i == 3){
-						answer =answer / num.get(depth+1);
-					}
-				}
+			if (operator[i] > 0){
 
+				operator[i]--;
 
-				dfs(depth+1,answer);
-				operater.set(i,operater.get(i)+1);
+				dfs();
 
+				operator[i]++;
 			}
-
-
 
 		}
 
 
-
 	}
+
+
 }
