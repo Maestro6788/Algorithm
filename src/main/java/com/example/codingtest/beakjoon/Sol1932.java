@@ -1,30 +1,40 @@
 package com.example.codingtest.beakjoon;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
 public class Sol1932 {
 
-	/**
-	 * 미해결 1932
-	 * DP
-	 */
+	public static void main(String[] args) throws IOException {
 
-	public static int[][] arr;
-	public static int[] dp;
-	public static boolean[] visit;
-	public static int N = 5;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int num = Integer.parseInt(br.readLine());
+		int[][] arr = new int[num][num];
 
-	public void sol() {
+		for (int i = 0 ; i < num ; i++){
+			StringTokenizer st = new StringTokenizer(br.readLine());
 
+			for (int j  = 0 ; j <= i ; j++ ){
+				arr[i][j] = Integer.parseInt(st.nextToken());
 
-		arr = new int[][]{{7},{3,8},{8,1,0},{2,7,4,4},{4,5,2,6,5}};
-		dp = new int[N];
+			}
+		}
 
+		for (int i = num-2 ; i >= 0; i--){
 
+			for (int j = 0 ; j <= i ; j++){
 
-		System.out.println("하이");
+				arr[i][j] += Math.max(arr[i+1][j],arr[i+1][j+1]);
+
+			}
+
+		}
+
+		System.out.println(arr[0][0]);
+
 	}
 
-	public static void dfs(int depth, int a1, int a2) {
 
-
-	}
 }
