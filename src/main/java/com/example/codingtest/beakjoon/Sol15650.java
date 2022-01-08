@@ -25,6 +25,9 @@ public class Sol15650 {
 		list = new ArrayList<>();
 		dfs(0,0);
 
+
+
+
 	}
 
 	public static void dfs(int depth,int idx) {

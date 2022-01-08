@@ -15,6 +15,8 @@ public class Sol10844 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		index = Integer.parseInt(br.readLine());
 
+		char[][] arr = new char[][]{{'1','1'},{'1','1'}};
+
 		for (int i = 1 ; i <= 9 ; i++){
 
 

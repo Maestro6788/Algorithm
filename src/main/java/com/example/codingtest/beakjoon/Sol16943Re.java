@@ -1,7 +1,10 @@
 package com.example.codingtest.beakjoon;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.lang.Math;
+import java.util.Map;
 
 public class Sol16943Re {
 
@@ -12,6 +15,8 @@ public class Sol16943Re {
 	public static int TAGET;
 
 	public static List<String> list;
+	public static Map<Integer,Integer> map;
+
 
 	public void sol() {
 		N = 1230;
@@ -20,6 +25,8 @@ public class Sol16943Re {
 		int target = N;
 
 		list = new ArrayList<>();
+
+		map = new HashMap<>();
 
 		while(target > 0){
 
