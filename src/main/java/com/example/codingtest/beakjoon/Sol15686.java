@@ -1,123 +1,108 @@
 package com.example.codingtest.beakjoon;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 // 치킨거리 https://www.acmicpc.net/problem/15686
 public class Sol15686 {
 
-	public static int[][] arr;
-	public static boolean[] visit;
-	public static int chickenMax;
-	public static int Min;
-	public static List<Point> chicken;
-	public static List<Point> house;
-
-	public class Point{
+	public static class Info {
 		int x;
 		int y;
 
-		public Point(int x, int y){
+		public Info(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
 
-		@Override
-		public String toString() {
-			return "Point{" +
-				"x=" + x +
-				", y=" + y +
-				'}';
-		}
 	}
 
-	public void sol() {
+	public static List<Info> chickenList;
+	public static List<Info> houseList;
+	public static List<Integer> list;
 
-		arr = new int[][] {
-			{0, 0, 1, 0, 0},
-			{0, 0, 2, 0, 1},
-			{0, 1, 2, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 0, 0, 2}
-		};
+	public static boolean[] visit;
+	public static int size;
+	public static int requested;
+	public static int min = Integer.MAX_VALUE;
 
-		chickenMax =3;
-		Min = 1000000;
+	public static void main(String[] args) throws IOException {
 
-		chicken = new ArrayList<>();
-		house = new ArrayList<>();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
+		chickenList = new ArrayList<>();
+		houseList = new ArrayList<>();
+		list = new ArrayList<>();
 
-		for (int i = 0 ; i < arr.length ; i++){
-			for (int j = 0 ; j < arr[0].length ; j++){
-				if(arr[i][j] == 1){
-					house.add(new Point(i,j));
+		size = Integer.parseInt(st.nextToken());
+		requested = Integer.parseInt(st.nextToken());
+
+		for (int i = 0; i < size; i++) {
+
+			StringTokenizer st1 = new StringTokenizer(br.readLine());
+
+			for (int j = 0; j < size; j++) {
+				int n = Integer.parseInt(st1.nextToken());
+
+				if (n == 1) {
+					houseList.add(new Info(j, i));
 				}
-				if (arr[i][j] == 2){
-					chicken.add(new Point(i,j));
+				if (n == 2) {
+					chickenList.add(new Info(j, i));
 				}
+
 			}
+
 		}
 
-		visit = new boolean[chicken.size()];
+		visit = new boolean[chickenList.size()];
 
+		dfs(0,0);
 
-		distance(0,0);
-
-		System.out.println(Min);
+		System.out.println(min);
 
 	}
 
-	public void distance(int depth, int num) {
-		System.out.println(num);
-		if(num != 0){
-			Min = Math.min(num,Min);
-		}
+	public static void dfs(int depth,int idx) {
 
-		if (depth >= chickenMax){
+		if (depth == requested) {
+
+			int sum = 0;
+			for (int i = 0; i < houseList.size(); i++) {
+				Info hou = houseList.get(i);
+
+				int distance = Integer.MAX_VALUE;
+				for (int j = 0; j < list.size(); j++) {
+					Info chi = chickenList.get(list.get(j));
+					distance = Math.min(distance, Math.abs(chi.x - hou.x) + Math.abs(chi.y - hou.y));
+
+				}
+				sum += distance;
+			}
+			min = Math.min(sum, min);
+
 			return;
 		}
 
+		for (int i = idx; i < chickenList.size(); i++) {
 
-		for (int i = 0 ; i < chicken.size() ; i++){
+			if (visit[i] == false) {
 
-			if (visit[i] == false){
 				visit[i] = true;
-
-				for (int index = 0 ; index < visit.length ; index++){
-					System.out.print(visit[index] + " "+  index + " ");
-				}
-				System.out.println();
-
-
-				int sum = 0;
-				// 계산
-				for (int j = 0 ; j < house.size() ; j++ ){
-					int count = 0;
-					for (int k = 0 ; k < chicken.size() ; k++){
-						if (visit[k] == true){
-							int add = 0;
-							add = Math.abs(chicken.get(k).x - house.get(j).x) + Math.abs(chicken.get(k).y - house.get(j).y);
-
-							if (count == 0){
-								count = add;
-							}
-							count = Math.min(count,add);
-						}
-
-					}
-					sum += count;
-
-				}
-
-
-
-				distance(depth +1, num + sum);
+				list.add(i);
+				dfs(depth + 1, i+1);
+				list.remove(depth);
 				visit[i] = false;
+
 			}
 
 		}
 
-
 	}
+
 }
