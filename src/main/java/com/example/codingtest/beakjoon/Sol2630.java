@@ -7,90 +7,69 @@ import java.util.StringTokenizer;
 
 public class Sol2630 {
 
+	public static int white = 0;
+	public static int black = 0;
 	public static int[][] arr;
-	public static boolean[][] visit;
-	public static int size;
-	public static int[] dx = {-1,1,0,0};
-	public static int[] dy = {0,0,-1,1};
-	public static boolean flag;
-	public static int count;
-
-
 
 	public static void main(String[] args) throws IOException {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int n = Integer.parseInt(br.readLine());
-		size = n;
-		arr = new int[n][n];
+		int num = Integer.parseInt(br.readLine());
+		arr = new int[num][num];
 
-
-		for (int i = 0 ; i < n ; i++){
+		for (int i = 0; i < num; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			for (int j = 0 ; j < n ; j++){
+			for (int j = 0; j < num; j++) {
 				arr[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
 
-		while(n > 0){
+		dfs(num, 0, 0);
 
-
-			cycle(n , 0);
-			n /= 2;
-
-
-
-		}
-
-
+		System.out.println(white);
+		System.out.println(black);
 
 	}
 
-	public static void cycle(int n , int depth){
+	// index 1,2,3,4 사분면
+	// n 가로 세로 크기
+	public static void dfs(int n, int x, int y) {
 
-		for (int startX = 0 ; startX < size ; startX += n ){
-			for (int startY = 0 ; startY < size ; startY += n){
-				visit = new boolean[size][size];
+		int one = 0;
+		int zero = 0;
 
-				for (int i = startX ; i < startX+n ; i++){
-					for (int j = startY ; j < startY+n ; j++){
-						if (visit[i][j] == false){
-							flag = false;
-							dfs(i,j,arr[i][j],n);
+		for (int i = 0; i < n; i++) {
 
-							if (flag == false){
-								count++;
-							}
+			for (int j = 0; j < n; j++) {
 
-						}
-					}
+				if (arr[x + i][y + j] == 1) {
+					one++;
+				}
+				if (arr[x + i][y + j] == 0) {
+					zero++;
 				}
 
 			}
+
 		}
 
-	}
+		if (one == 0 || zero == 0) {
 
-	public static void dfs(int x, int y, int index, int arrSize){
-		// index 1,0 둘중하나로 입력됨
-
-		for (int i = 0 ; i < 4 ; i++){
-			int nx = x + dx[i];
-			int ny = y + dy[i];
-
-			if (nx>= 0 && ny >= 0 && nx<arrSize && ny<arrSize){
-
-				if (visit[nx][ny] == false){
-					if (index != arr[nx][ny]){
-						flag = true;
-						return;
-					}
-					// 1이 아니면 중단 시킬수 있도록 코드를 작성
-					dfs(nx,ny,index,arrSize);
-
-				}
+			if (one == 0) {
+				white++;
 			}
+			if (zero == 0) {
+				black++;
+			}
+
+			return;
 		}
+
+		dfs(n / 2, x, y);
+		dfs(n / 2, x + n / 2, y);
+		dfs(n / 2, x, y + n / 2);
+		dfs(n / 2, x + n / 2, y + n / 2);
+
 	}
 
 }
